@@ -25,7 +25,7 @@ app.get('/:id', async (req, res) => {
   if (cache[req.params.id]) {
     const cached = cache[req.params.id]
     if (Date.now() - cached.time < cacheTime) {
-      res.end(cached.text)
+      res.end(cached.buffer)
       return
     }
   }
@@ -42,13 +42,13 @@ app.get('/:id', async (req, res) => {
   const json = await ures.json()
 
   const ares = await fetch(`https://cdn.discordapp.com/avatars/${req.params.id}/${json.avatar}.png`)
-  const text = await ares.text()
+  const buffer = await ares.buffer()
   
   cache[req.params.id] = {
     time: Date.now(),
-    text
+    buffer
   }
-  res.end(text)
+  res.end(buffer)
 })
 
 app.listen(3000, () => console.log('> Listening on http://localhost:3000/'))
