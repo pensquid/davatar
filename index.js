@@ -21,7 +21,7 @@ GET /:id -> a PNG image
 
 app.get('/:id', async (req, res) => {
   if (cache[req.params.id]) {
-    const cached = req.params.id
+    const cached = cache[req.params.id]
     if (Date.now() - cached.time < cacheTime) {
       res.type('png')
       cached.stream.pipe(res)
