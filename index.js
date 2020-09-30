@@ -8,6 +8,7 @@ const cacheTime = 5 * 60 * 60 * 1000
 const cache = {}
 
 app.get('/', (req, res) => {
+  res.contentType('text/plain')
   res.send(`
 Davatar
 -------
